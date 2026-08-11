@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+/*
+  Design direction: "signal room" — a dark ops-console aesthetic, not the
+  generic near-black+neon-accent AI default. Base is a deep slate-blue
+  (not pure black) evoking a terminal/monitoring dashboard. Two accents:
+  electric cyan for "data in motion" (packets, requests) and amber for
+  "state/warning" (control-plane events). Monospace is a first-class
+  citizen since this site's subject *is* code and protocols.
+*/
+@theme {
+  --font-display: "Space Grotesk", "Inter", ui-sans-serif, system-ui;
+  --font-body: "Inter", ui-sans-serif, system-ui;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace;
+
+  --color-abyss-950: #05070d;
+  --color-abyss-900: #0a0e1a;
+  --color-abyss-800: #101728;
+  --color-abyss-700: #1a2438;
+  --color-abyss-600: #29385a;
+
+  --color-signal-400: #5eead4;
+  --color-signal-500: #22d3c9;
+  --color-signal-600: #0ea5a0;
+
+  --color-amber-400: #fbbf24;
+  --color-amber-500: #f59e0b;
+
+  --color-mist-100: #eef2f8;
+  --color-mist-300: #b8c4d9;
+  --color-mist-500: #7c8aa8;
+
+  --animate-packet-flow: packet-flow 2.4s linear infinite;
+  --animate-pulse-slow: pulse-slow 3s ease-in-out infinite;
+  --animate-draw-line: draw-line 1.2s ease-out forwards;
+}
+
+@keyframes packet-flow {
+  0% { offset-distance: 0%; opacity: 0; }
+  8% { opacity: 1; }
+  92% { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.06); }
+}
+@keyframes draw-line {
+  from { stroke-dashoffset: 1000; }
+  to { stroke-dashoffset: 0; }
+}
+
+html, body, #root { height: 100%; }
+
+body {
+  background: var(--color-abyss-950);
+  color: var(--color-mist-100);
+  font-family: var(--font-body);
+  background-image:
+    radial-gradient(circle at 20% 0%, rgba(94,234,212,0.06), transparent 40%),
+    radial-gradient(circle at 80% 100%, rgba(245,158,11,0.05), transparent 40%);
+}
+
+::selection { background: var(--color-signal-500); color: var(--color-abyss-950); }
+
+.grid-overlay {
+  background-image:
+    linear-gradient(to right, rgba(184,196,217,0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(184,196,217,0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
